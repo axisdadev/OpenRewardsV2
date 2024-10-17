@@ -4,3 +4,7 @@ BOT-TOKEN: ""
 # Database
 DEFAULT-DATABASE: "data/default.json" 
 BACKUP-DATABASE: "data/backup.json"
+
+# Logging
+NEXTCORD-LOGGING: true
+OPENRWDS-LOGGING: true
