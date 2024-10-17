@@ -1,2 +1,6 @@
 # Credentials
 BOT-TOKEN: ""
+
+# Database
+DEFAULT-DATABASE: "data/default.json" 
+BACKUP-DATABASE: "data/backup.json"
