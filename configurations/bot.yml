@@ -2,9 +2,10 @@
 BOT-TOKEN: ""
 
 # Database
-DEFAULT-DATABASE: "data/default.json" 
-BACKUP-DATABASE: "data/backup.json"
+DEFAULT-DATABASE: "data/default.json" # Default database for TinyDB to use
+BACKUP-DATABASE: "data/backup.json" # Backup database to recover from if something happens. Saves every X minutes unless forcibly shut down by Host
+BACKUP-MINUTES: "30" # Timer to backup the database and copy data from DEFAULT-DATABASE to BACKUP-DATABASE
 
 # Logging
-NEXTCORD-LOGGING: true
-OPENRWDS-LOGGING: true
+LOGGING: true # Enable logging from Nextcord and OpenRewards
+LOG-FILE: "app.log" # Set what file logs should default to, Factory setting is app.log
