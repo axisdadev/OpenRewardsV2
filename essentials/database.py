@@ -1,22 +1,31 @@
-from asynctinydb import TinyDB, UUID, Query
-import config
+from asynctinydb import TinyDB, Query
+from essentials import config
+import uuid
 
 
 class DatabaseManager:
     def __init__(self):
-        configurationManager = config.configurationManager()
+        configurationManager = config.ConfigurationManager()
         defaultConfig = configurationManager.getBotConfig()
 
         self.Database = TinyDB(defaultConfig["DEFAULT-DATABASE"])
         pass
 
     async def createProfile(self, discordId: str):
+        check = await self.fetchProfile(discordId)
+
+        if check is not False:
+            print(
+                f"""Failed to create Profile with a discordID of {discordId}, Already is present in Database"""
+            )
+            return False
+
         action = await self.Database.insert(
             document={
                 "discordId": discordId,
                 "points": 0,
                 "itemsOwned": {},
-                "UUID": UUID(),
+                "UUID": str(object=uuid.uuid4()),
             }
         )
 
@@ -30,17 +39,17 @@ class DatabaseManager:
             return False
 
     async def fetchProfile(self, discordId: str):
-        configurationManager = config.configurationManager()
+        configurationManager = config.ConfigurationManager()
         defaultConfig = configurationManager.getBotConfig()
         localDatabase = TinyDB(defaultConfig["DEFAULT-DATABASE"])
 
         search = Query()
-        profile = localDatabase.get(search.discordId == discordId)
+        profile = await localDatabase.get(search.discordId == discordId)
 
         if profile:
             return profile
-        else:
+        elif not profile:
             print(
-                f"""Failed to fetch profile created with a discordID of {discordId}"""
+                f"""Failed to fetch profile with a discordID of {discordId}"""
             )
             return False

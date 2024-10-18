@@ -4,6 +4,7 @@ import os
 
 from nextcord.ext import commands
 from essentials import config
+from essentials import database
 
 configurationManager = config.ConfigurationManager()
 defaultConfig = configurationManager.getBotConfig()
@@ -33,13 +34,22 @@ if defaultConfig["LOGGING"] is True:
 
 bot = commands.Bot(intents=intents)
 
-for filename in os.listdir("./ext"):  # Use ./ext as a folder to contain all Cogs (Commands)
-    if filename.endswith(".py"):  
+for filename in os.listdir(
+    "./ext"
+):  # Use ./ext as a folder to contain all Cogs (Commands)
+    if filename.endswith(".py"):
         bot.load_extension(f"ext.{filename[:-3]}")
 
 
 @bot.event
 async def on_ready():
-    print(f"Running OpenRewards Release Version - {defaultConfig['RELEASE']}\nThank you for using OpenRewards!")
+    print(
+        f"Running OpenRewards Release Version - {defaultConfig['RELEASE']}\nThank you for using OpenRewards!"
+    )
 
-bot.run(defaultConfig['BOT-TOKEN'])
+    databaseManager = database.DatabaseManager()
+    profileTest = await databaseManager.createProfile(discordId="998819061817413652")
+    print(profileTest)
+
+
+bot.run(defaultConfig["BOT-TOKEN"])

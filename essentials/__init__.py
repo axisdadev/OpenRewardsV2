@@ -1,2 +1,2 @@
-import config  # noqa: F401
-import database # noqa: F401
+from . import config
+from . import database
