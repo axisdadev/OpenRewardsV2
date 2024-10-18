@@ -1,6 +1,7 @@
 import yaml
 import sys
 
+
 class ConfigurationManager:
     def __init__(self):
         with open("configurations/bot.yml") as f:
@@ -25,5 +26,6 @@ class ConfigurationManager:
                 result = yamlFile
         except Exception:
             print(f"""Unable to find configuration file "{name}.yml""", file=sys.stderr)
+            return Exception
 
         return result
