@@ -47,9 +47,5 @@ async def on_ready():
         f"Running OpenRewards Release Version - {defaultConfig['RELEASE']}\nThank you for using OpenRewards!"
     )
 
-    databaseManager = database.DatabaseManager()
-    profileTest = await databaseManager.createProfile(discordId="998819061817413652")
-    print(profileTest)
-
 
 bot.run(defaultConfig["BOT-TOKEN"])
