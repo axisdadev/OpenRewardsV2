@@ -1,5 +1,5 @@
 import yaml
-
+import sys
 
 class ConfigurationManager:
     def __init__(self):
@@ -19,8 +19,11 @@ class ConfigurationManager:
         filePath = f"configurations/commands/{name}.yml"
         result = None
 
-        with open(file=filePath) as f:
-            yamlFile = yaml.safe_load(f)
-            result = yamlFile
+        try:
+            with open(file=filePath) as f:
+                yamlFile = yaml.safe_load(f)
+                result = yamlFile
+        except Exception:
+            print(f"""Unable to find configuration file "{name}.yml""", file=sys.stderr)
 
         return result

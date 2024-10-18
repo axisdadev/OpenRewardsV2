@@ -40,6 +40,6 @@ for filename in os.listdir("./ext"):  # Use ./ext as a folder to contain all Cog
 
 @bot.event
 async def on_ready():
-    logger.info(f"Running OpenRewards Release Version - {defaultConfig['RELEASE']}\nThank you for using OpenRewards!")
+    print(f"Running OpenRewards Release Version - {defaultConfig['RELEASE']}\nThank you for using OpenRewards!")
 
 bot.run(defaultConfig['BOT-TOKEN'])
