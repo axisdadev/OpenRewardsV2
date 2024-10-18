@@ -4,7 +4,7 @@ import os
 
 from nextcord.ext import commands
 from essentials import config
-from essentials import database
+## from essentials import database
 
 configurationManager = config.ConfigurationManager()
 defaultConfig = configurationManager.getBotConfig()

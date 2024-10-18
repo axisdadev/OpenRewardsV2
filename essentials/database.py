@@ -49,23 +49,21 @@ class DatabaseManager:
         if profile:
             return profile
         elif not profile:
-            print(
-                f"""Failed to fetch profile with a discordID of {discordId}"""
-            )
+            print(f"""Failed to fetch profile with a discordID of {discordId}""")
             return False
-        
+
     async def updateProfile(self, discordId: str, update: dict):
         configurationManager = config.ConfigurationManager()
         defaultConfig = configurationManager.getBotConfig()
         localDatabase = TinyDB(defaultConfig["DEFAULT-DATABASE"])
 
         search = Query()
-        updateStatement = await localDatabase.update(update, search.discordId == discordId)
+        updateStatement = await localDatabase.update(
+            update, search.discordId == discordId
+        )
 
         if updateStatement:
             return True
         elif not updateStatement:
-            print(
-                f"""Failed to update profile with a discordID of {discordId}"""
-            )
+            print(f"""Failed to update profile with a discordID of {discordId}""")
             return False
