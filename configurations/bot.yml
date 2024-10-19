@@ -9,7 +9,7 @@ ENABLE-BACKUP: true # To disable the feature entirely. Just change the "true" va
 
 
 # Logging
-LOGGING: true # Enable logging from Nextcord and OpenRewards
+LOGGING: true # Enable logging from OpenRewards
 LOG-FILE: "app.log" # Set what file logs should default to, Factory setting is app.log
 
 # Github Details 

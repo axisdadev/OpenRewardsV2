@@ -1,5 +1,4 @@
 import nextcord
-import logging
 import os
 
 from nextcord.ext import commands
@@ -16,20 +15,6 @@ intents.message_content = True
 intents.dm_messages = True
 intents.guilds = True
 
-## Logging
-
-if defaultConfig["LOGGING"] is True:
-    logger = logging.getLogger("nextcord")
-    logger.setLevel(logging.INFO)
-
-    handler = logging.FileHandler(defaultConfig["LOG-FILE"])
-    handler.setFormatter(
-        fmt=logging.Formatter("%(asctime)s:%(levelname)s:%(name)s: %(message)s")
-    )
-
-    logger.addHandler(handler)
-
-
 ## Bot Construction
 
 bot = commands.Bot(intents=intents)
@@ -39,6 +24,7 @@ for filename in os.listdir(
 ):  # Use ./ext as a folder to contain all Cogs (Commands)
     if filename.endswith(".py"):
         bot.load_extension(f"ext.{filename[:-3]}")
+        print(f"""Loading extension ext.{filename[:-3]}...""")
 
 
 @bot.event
