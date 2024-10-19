@@ -1,20 +1,16 @@
-from essentials import config
+# logger_setup.py
 import logging
 import colorlog
 
 
-def setup_logging():
-    configurationManager = config.ConfigurationManager()
-    defaultConfig = configurationManager.getBotConfig()
+def setup_logger():
+    logger = logging.getLogger("openrwds")
+    logger.setLevel(logging.INFO)
 
-    if defaultConfig["LOGGING"] is True:
-        logger = logging.getLogger("nextcord")
-        logger.setLevel(logging.INFO)
-
-        handler = logging.StreamHandler()
-        file_handler = logging.FileHandler("app.log")
-
-        formatter = colorlog.ColoredFormatter(
+    if not logger.handlers:  # Check if handlers already exist to avoid duplicates
+        # Console handler (with color)
+        console_handler = logging.StreamHandler()
+        color_formatter = colorlog.ColoredFormatter(
             "%(log_color)s%(asctime)s:%(levelname)s:%(name)s: %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
             log_colors={
@@ -25,13 +21,18 @@ def setup_logging():
                 "CRITICAL": "bold_red",
             },
         )
+        console_handler.setFormatter(color_formatter)
 
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
+        # File handler (no color)
+        file_handler = logging.FileHandler("app.log")
+        file_formatter = logging.Formatter(
+            "%(asctime)s:%(levelname)s:%(name)s: %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+        )
+        file_handler.setFormatter(file_formatter)
+
+        # Add both handlers
+        logger.addHandler(console_handler)
         logger.addHandler(file_handler)
 
-        logger.info("Logging with colored output is set up successfully.")
-
-
-if __name__ == "__main__":
-    setup_logging()
+    return logger

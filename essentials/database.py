@@ -1,5 +1,6 @@
 from asynctinydb import TinyDB, Query
 from essentials import config
+from essentials.logger import setup_logger
 import uuid
 
 
@@ -9,13 +10,14 @@ class DatabaseManager:
         defaultConfig = configurationManager.getBotConfig()
 
         self.Database = TinyDB(defaultConfig["DEFAULT-DATABASE"])
+        self.log = setup_logger()
         pass
 
     async def createProfile(self, discordId: str):
         check = await self.fetchProfile(discordId)
 
         if check is not False:
-            print(
+            self.log.warning(
                 f"""Failed to create Profile with a discordID of {discordId}, Already is present in Database"""
             )
             return False
@@ -30,10 +32,10 @@ class DatabaseManager:
         )
 
         if action:
-            print(f"""Profile created with a discordID of {discordId}""")
+            self.log.info(f"""Profile created with a discordID of {discordId}""")
             return action
         else:
-            print(
+            self.log.warning(
                 f"""Failed to create profile created with a discordID of {discordId}"""
             )
             return False
@@ -49,7 +51,9 @@ class DatabaseManager:
         if profile:
             return profile
         elif not profile:
-            print(f"""Failed to fetch profile with a discordID of {discordId}""")
+            self.log.warning(
+                f"""Failed to fetch profile with a discordID of {discordId}"""
+            )
             return False
 
     async def updateProfile(self, discordId: str, update: dict):
@@ -65,5 +69,7 @@ class DatabaseManager:
         if updateStatement:
             return True
         elif not updateStatement:
-            print(f"""Failed to update profile with a discordID of {discordId}""")
+            self.log.warning(
+                f"""Failed to update profile with a discordID of {discordId}"""
+            )
             return False
