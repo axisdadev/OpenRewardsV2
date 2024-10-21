@@ -1,0 +1,15 @@
+## """THIS FIlE IS MEANT TO BE AN EXAMPLE, YOU CAN CONVERT THIS. EACH CONFIGURATION FILE MAY DIFFER SLIGHTLY"""
+## """FILE MUST BE NAMED EXACTLY AS THE COMMAND"""
+## """VARIABLE REFRENCES FOR EACH COMMAND CAN BE FOUND IN THE DOCS!"""
+
+## Permissions
+PERMS-REQUIRED: false # Operations for points are automatically set in bot.yml.
+ADDITIONAL-ROLES: []
+ADDITIONAL-USER-IDS: []
+
+## Message:
+CUSTOM-RESPONSE: true # Enable custom response
+CONTENT: "" # The base content of your message.
+EMBED_JSON: | { ## Example embed, Copy embed JSON from https://embed.dan.onl, Variable refrence is also allowed. Must be valid JSON.
+  "title": "Ping!" 
+}

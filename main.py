@@ -9,6 +9,9 @@ from essentials.logger import setup_logger
 configurationManager = config.ConfigurationManager()
 defaultConfig = configurationManager.getBotConfig()
 
+## Configuration check
+
+
 ## Intents
 # """Would recommend to enable on the bot panel. Configure as required."""
 intents = nextcord.Intents.default()
@@ -23,15 +26,15 @@ logger = setup_logger()
 
 for filename in os.listdir(
     "./ext"
-):  # Use ./ext as a folder to contain all Cogs (Commands)
+):  # Use ./ext as a folder to contain all Cogs (Command Groups)
     if filename.endswith(".py"):
         bot.load_extension(f"ext.{filename[:-3]}")
-        logger.info(f"""Loading extension ext.{filename[:-3]}...""")
+        logger.info(f"""Loaded extension ext.{filename[:-3]}!""")
 
 
 @bot.event
 async def on_ready():
-    logger.info(f"Running OpenRewards Release Version - {defaultConfig['RELEASE']}")  
+    logger.info(f"Running OpenRewards Release Version - {defaultConfig['RELEASE']}")
 
 
 bot.run(defaultConfig["BOT-TOKEN"])

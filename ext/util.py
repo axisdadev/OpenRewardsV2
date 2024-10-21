@@ -1,5 +1,6 @@
 import nextcord
 from nextcord.ext import commands
+from nextcord import Embed
 from essentials import database, config
 from essentials.logger import setup_logger
 
@@ -15,24 +16,34 @@ class Util(commands.Cog, name="util"):
         self.log = setup_logger()
 
     @nextcord.slash_command()
-    async def hello(self, ctx, *, member: nextcord.Member = None):
-        """Says hello"""
-        member = member or ctx.author
-        if self._last_member is None or self._last_member.id != member.id:
-            await ctx.send(f'Hello {member.name}~')
+    async def ping(self, interaction: nextcord.Interaction):
+        """Returns the latency of the bot."""
+        loadCommandConfig = self.botConfigManager.getCommandConfig("ping", check=False)
+        useDefaultConfig = False
+        
+        if loadCommandConfig is False:
+            useDefaultConfig = True  # noqa: F841
+            pass
+
+        if useDefaultConfig:
+            responseEmbed = Embed(title="🏓 Pong!", colour=nextcord.Color(int("ed80e9", 16)))
+            responseEmbed.add_field(name="My latency is...", inline=True, value=f"```{round(self.bot.latency * 1000)}ms```")
+
+            await interaction.send(embed=responseEmbed)
         else:
-            await ctx.send(f'Hello {member.name}... This feels familiar.')
-        self._last_member = member
+            return NotImplemented
+
+        
+
+
+
+        
+
+
     
 
 def setup(bot):
-    ## Run checks for configuration in each command
     bot.add_cog(Util(bot))
-
-    tempLog = setup_logger()
-    cog = bot.get_cog("util")
-
-    tempLog.info(f"> Loaded ext.{cog.qualified_name}!")
 
     
 

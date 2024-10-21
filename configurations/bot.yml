@@ -14,3 +14,17 @@ LOG-FILE: "app.log" # Set what file logs should default to, Factory setting is a
 
 # Github Details 
 RELEASE: "DEV1"
+
+# Permissions
+STAFF-ROLES: [] ## Staff roles, These will be the roles able to access point/rewards accounts. Add, Remove **with limits**.
+ADMIN-ROLES: [] ## Admin roles, These will be the roles similar to staff roles. But **without limits**, These roles will also be able to Delete, Give and Manage user items.
+OWNER-IDS: [] ## User ID's of the owner of the bot. These user ID's have FULL control of the bot. Additional permissions such as completly deleting user profiles, and more adminstrative features.
+
+# Profile Configuration
+ICON: "" ## The markdown of a certain emoji to put infront of all refrences of points
+DELETE-ON-LEAVE: false ## Boolean, Delete the users profile if they leave the server, Setting the value to true will allow this to happen.
+
+
+## Staff Role Permissions
+MAX_ADD: 10000 # Ranges from 0 to X, The amount a staff member is allowed to give points to a user.
+MAX_SUB: 10000 # Ranges from 0 to X, The amount a staff member is allowed to remove points from a user.

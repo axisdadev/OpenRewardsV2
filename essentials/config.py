@@ -9,6 +9,7 @@ class ConfigurationManager:
             yamlFile = yaml.safe_load(f)
             self.botConfig = yamlFile
             self.log = setup_logger()
+            self.warnings = []
 
         return
 
@@ -28,9 +29,13 @@ class ConfigurationManager:
                 result = yamlFile
         except Exception:
             if not check:
-                self.log.warning(
-                    f"""Unable to find configuration file "{name}.yml, Will default to normal."""
-                )
+                if not self.warnings[name]:
+                    self.log.warning(
+                        f"""Unable to find configuration file "{name}.yml, Will default to normal."""
+                    )
+
+                    self.warnings.insert(name)
+
             return False
 
         return result
