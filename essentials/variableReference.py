@@ -36,7 +36,7 @@ async def get_reference(
 
         if item in category_data:
             try:
-                if item.startswith("$"):
+                if str(category_data[item]).startswith("$"):
                     try:
                         profile = await databaseManager.fetchProfile(
                             interaction.user.id

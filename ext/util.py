@@ -21,7 +21,7 @@ class Util(commands.Cog, name="util"):
         loadCommandConfig = self.botConfigManager.getCommandConfig("ping", check=False)
         useDefaultConfig = False
 
-        ref = await variableReference.get_reference("user.name")
+        ref = await variableReference.get_reference(variable="user.points", interaction=interaction, additionalParams={})
         print(ref)
 
         
