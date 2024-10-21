@@ -9,7 +9,8 @@ ADDITIONAL-USER-IDS: []
 
 ## Message:
 CUSTOM-RESPONSE: true # Enable custom response
-CONTENT: "" # The base content of your message.
-EMBED_JSON: | { ## Example embed, Copy embed JSON from https://embed.dan.onl, Variable refrence is also allowed. Must be valid JSON.
+CONTENT: "" # The base content of your message. Variable refrences are also allowed.
+EMBED_JSON: | { ## Example embed, Copy embed JSON from https://embed.dan.onl, Variable refrence is also allowed. Must be valid JSON. Variable refrences are also allowed.
   "title": "Ping!" 
 }
+
