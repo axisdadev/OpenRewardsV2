@@ -26,8 +26,8 @@ class Util(commands.Cog, name="util"):
             pass
 
         if useDefaultConfig:
-            responseEmbed = Embed(title="🏓 Pong!", colour=nextcord.Color(int("ed80e9", 16)))
-            responseEmbed.add_field(name="My latency is...", inline=True, value=f"```{round(self.bot.latency * 1000)}ms```")
+            responseEmbed = Embed(title="🏓 Pong!", colour=nextcord.Color(int("3DED97", 16)))
+            responseEmbed.add_field(name="My latency is...", inline=True, value=f"```{round(self.bot.latency * 1000)}ms!```")
 
             await interaction.send(embed=responseEmbed)
         else:

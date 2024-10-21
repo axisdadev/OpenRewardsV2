@@ -29,12 +29,12 @@ class ConfigurationManager:
                 result = yamlFile
         except Exception:
             if not check:
-                if not self.warnings[name]:
+                if name not in self.warnings:
                     self.log.warning(
                         f"""Unable to find configuration file "{name}.yml, Will default to normal."""
                     )
 
-                    self.warnings.insert(name)
+                    self.warnings.append(name)
 
             return False
 
