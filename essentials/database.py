@@ -1,7 +1,12 @@
 from asynctinydb import TinyDB, Query
+from nextcord.ext import tasks
 from essentials import config
 from essentials.logger import setup_logger
 import uuid
+import json
+import time
+
+defaultConfig = config.ConfigurationManager().getBotConfig()
 
 
 class DatabaseManager:
@@ -11,6 +16,7 @@ class DatabaseManager:
 
         self.Database = TinyDB(defaultConfig["DEFAULT-DATABASE"])
         self.log = setup_logger()
+        self.backupDatabase.start()
         pass
 
     async def createProfile(self, discordId: str):
@@ -73,3 +79,29 @@ class DatabaseManager:
                 f"""Failed to update profile with a discordID of {discordId}"""
             )
             return False
+
+    @tasks.loop(minutes=defaultConfig["BACKUP-MINUTES"])
+    async def backupDatabase(self):
+        if defaultConfig["ENABLE-BACKUP"] is True:
+            self.log.info("Backing up database...")
+
+            try:
+                start = int(time.time())
+                with open(
+                    file=f"{defaultConfig["DEFAULT-DATABASE"]}", mode="r"
+                ) as source:
+                    data = json.load(fp=source)
+
+                with open(
+                    file=f"{defaultConfig["BACKUP-DATABASE"]}", mode="w"
+                ) as destination:
+                    json.dump(data, destination, indent=None)
+
+                end = int(time.time())
+                self.log.info(
+                    f"Sucessfully backed up data! Took {end-start}ms"
+                )
+            except Exception as e:
+                self.log.warning(f"Unable to backup data. Exception: {e}")
+
+        return

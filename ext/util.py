@@ -1,7 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 from nextcord import Embed
-from essentials import database, config
+from essentials import database, config, variableReference
 from essentials.logger import setup_logger
 
 
@@ -20,6 +20,10 @@ class Util(commands.Cog, name="util"):
         """Returns the latency of the bot."""
         loadCommandConfig = self.botConfigManager.getCommandConfig("ping", check=False)
         useDefaultConfig = False
+
+        ref = await variableReference.get_reference("user.name")
+        print(ref)
+
         
         if loadCommandConfig is False:
             useDefaultConfig = True  # noqa: F841

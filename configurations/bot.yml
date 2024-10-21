@@ -4,7 +4,7 @@ BOT-TOKEN: "MTI5NjYwNDQ1NDQ1MTQxNzEzMQ.Gv1ncr.16-MujVsAg6kvt7qXvXu7ZWrvgmmj41Bqj
 # Database
 DEFAULT-DATABASE: "data/default.json" # Default database for TinyDB to use
 BACKUP-DATABASE: "data/backup.json" # Backup database to recover from if something happens. Saves every X minutes unless forcibly shut down by Host
-BACKUP-MINUTES: "30" # Timer to backup the database and copy data from DEFAULT-DATABASE to BACKUP-DATABASE
+BACKUP-MINUTES: 10 # Timer to backup the database and copy data from DEFAULT-DATABASE to BACKUP-DATABASE
 ENABLE-BACKUP: true # To disable the feature entirely. Just change the "true" value to "false". (NOT RECOMMENDED)
 
 

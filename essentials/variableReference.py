@@ -11,6 +11,8 @@ variable_references = {
         "nickname": "Interaction.user.nick",
         "avatar": "Interaction.user.avatar.url",
         "banner": "Interaction.user.banner.url",
+        "points": """$["points"]""",
+        "items": """$["itemsOwned"]""",
     },
 }
 
@@ -20,6 +22,8 @@ async def get_reference(
 ):
     logger = setup_logger()
     split_name = variable.split(sep=".", maxsplit=1)
+
+    databaseManager = database.DatabaseManager()
 
     if len(split_name) != 2:
         logger.warning(f"Referenced variable '{variable}' is invalid. Returning None.")
@@ -32,8 +36,18 @@ async def get_reference(
 
         if item in category_data:
             try:
-                value = eval(category_data[item], {"Interaction": interaction})
-                return value, True
+                if item.startswith("$"):
+                    try:
+                        profile = await databaseManager.fetchProfile(
+                            interaction.user.id
+                        )
+                        value = eval(category_data[item], {"$": profile})
+                        return value, True
+                    except Exception:
+                        return None, False
+                else:
+                    value = eval(category_data[item], {"Interaction": interaction})
+                    return value, True
             except AttributeError as e:
                 logger.warning(f"Error accessing {item}: {e}")
                 return None, False
