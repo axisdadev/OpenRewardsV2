@@ -4,12 +4,13 @@ import sys
 import time
 
 from nextcord.ext import commands
-from essentials import config
+from essentials import config, database
 from essentials.logger import setup_logger
 ## from essentials import database
 
 configurationManager = config.ConfigurationManager()
 defaultConfig = configurationManager.getBotConfig()
+databaseManager = database.DatabaseManager()
 
 ## Intents
 # """Would recommend to enable on the bot panel. Configure as required."""
@@ -55,6 +56,7 @@ if _madeNew is True:
 @bot.event
 async def on_ready():
     logger.info(f"Running OpenRewards Release Version - {defaultConfig['RELEASE']}")
+    databaseManager.backupDatabase.start()
 
 
 bot.run(defaultConfig["BOT-TOKEN"])

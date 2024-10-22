@@ -5,6 +5,7 @@ from essentials.logger import setup_logger
 import uuid
 import json
 import time
+import os
 
 defaultConfig = config.ConfigurationManager().getBotConfig()
 
@@ -16,7 +17,6 @@ class DatabaseManager:
 
         self.Database = TinyDB(defaultConfig["DEFAULT-DATABASE"])
         self.log = setup_logger()
-        self.backupDatabase.start()
         pass
 
     async def createProfile(self, discordId: str):
@@ -87,6 +87,12 @@ class DatabaseManager:
 
             try:
                 start = int(time.time())
+
+                fileSizeCheck = os.path.getsize(defaultConfig["DEFAULT-DATABASE"])
+                if fileSizeCheck == 0:
+                    self.log.warning(f"Unable to backup data. No data is in {defaultConfig["DEFAULT-DATABASE"]} Heed this warning.")
+                    return
+                
                 with open(
                     file=f"{defaultConfig["DEFAULT-DATABASE"]}", mode="r"
                 ) as source:
