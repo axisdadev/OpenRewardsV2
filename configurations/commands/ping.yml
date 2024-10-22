@@ -1,0 +1,20 @@
+## """THIS FIlE IS MEANT TO BE AN EXAMPLE, YOU CAN CONVERT THIS. EACH CONFIGURATION FILE MAY DIFFER SLIGHTLY"""
+## """FILE MUST BE NAMED EXACTLY AS THE COMMAND"""
+## """VARIABLE REFRENCES FOR EACH COMMAND CAN BE FOUND IN THE DOCS!"""
+
+## Permissions
+PERMS-REQUIRED: false # Operations for points are automatically set in bot.yml.
+ADDITIONAL-ROLES: []
+ADDITIONAL-USER-IDS: []
+
+## Message:
+CUSTOM-RESPONSE: true # Enable custom response
+CONTENT: "🦅 my american ping" # The base content of your message. Variable refrences are also allowed.
+EMBED_JSON: | {
+  "title": "Bot - Ping!",
+  "description": "My latency is... - **{bot.ping}**",
+  "image": {
+    "url": "https://cdn.discordapp.com/attachments/1270864870954369045/1284039879394856960/Rapid-rewards.png?ex=6717f093&is=67169f13&hm=2e3396e96f1f94117b1a7732eedcdfebc0b3ed786a399aacf11f518fd8e5bb4c&"
+  },
+  "color": "#865ee4"
+}
