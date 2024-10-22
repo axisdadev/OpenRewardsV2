@@ -10,11 +10,4 @@ ADDITIONAL-USER-IDS: []
 ## Message:
 CUSTOM-RESPONSE: true # Enable custom response
 CONTENT: "🦅 my american ping" # The base content of your message. Variable refrences are also allowed.
-EMBED_JSON: | {
-  "title": "Bot - Ping!",
-  "description": "My latency is... - **{bot.ping}**",
-  "image": {
-    "url": "https://cdn.discordapp.com/attachments/1270864870954369045/1284039879394856960/Rapid-rewards.png?ex=6717f093&is=67169f13&hm=2e3396e96f1f94117b1a7732eedcdfebc0b3ed786a399aacf11f518fd8e5bb4c&"
-  },
-  "color": "#865ee4"
-}
+EMBED_PATH: "configurations/embedData/ping.json" # The path where the data of the embed shall go. Get embed data from https://glitchii.github.io/embedbuilder/ the content field isn't included in JSON data.

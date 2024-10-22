@@ -40,17 +40,14 @@ class Util(commands.Cog, name="util"):
 
             await interaction.send(embed=responseEmbed)
         else:
-            jsonFromYML = loadCommandConfig["EMBED_JSON"]
-            variables = jsonFormatter.extractVariables(jsonFromYML)
+            jsonPath = loadCommandConfig["EMBED_PATH"]
+            jsonLoaded = jsonFormatter.loadEmbedData(jsonPath)
+            jsonToEmbed = jsonFormatter.jsonToEmbed(jsonLoaded)
 
-            for customVariable, value in customVariables.items():
-                if customVariable in variables:
-                    jsonFromYML = jsonFormatter.replaceVariables(
-                        jsonFromYML, {customVariable: value}
-                    )
-
-            jsonToEmbed = jsonFormatter.jsonToEmbed(json_string=jsonFromYML)
-            await interaction.send(embed=jsonToEmbed)
+            extractVariables = jsonFormatter.extractVariables(jsonToEmbed)
+            print(extractVariables)
+            
+            await interaction.send(content=loadCommandConfig["CONTENT"], embed=jsonToEmbed)
 
 
 def setup(bot):

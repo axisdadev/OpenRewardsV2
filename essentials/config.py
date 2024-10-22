@@ -1,4 +1,5 @@
 import yaml
+import os
 
 from essentials.logger import setup_logger
 
@@ -20,19 +21,24 @@ class ConfigurationManager:
     def getCommandConfig(self, name: str, check: bool):
         """Get a configuration for a specific command. Must be a valid configuration file name matching command to register"""
 
-        filePath = f"configurations/commands/{name}.yml"
+        filePath = os.path.join(f"configurations/commands/{name}.yml")
         result = None
 
         try:
-            with open(file=filePath) as f:
+            with open(file=filePath, mode="r") as f:
                 yamlFile = yaml.safe_load(f)
                 result = yamlFile
-        except Exception:
+        except Exception as e:
             if not check:
                 if name not in self.warnings:
-                    self.log.warning(
-                        f"""Unable to find configuration file "{name}.yml, Will default to normal."""
-                    )
+                    if e is FileNotFoundError:
+                        self.log.warning(
+                            f"""Unable to find configuration file "{name}.yml", Will default to normal."""
+                        )
+                    else:
+                        self.log.warning(
+                            f"""Unable to find access configuration file with Exception being: "{e}" """
+                        )
 
                     self.warnings.append(name)
 
