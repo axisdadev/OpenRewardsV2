@@ -20,7 +20,12 @@ class DatabaseManager:
         pass
 
     async def createProfile(self, discordId: str):
-        """Creates a default and new profile for the user."""
+        """
+        Creates a default and new profile for the user.
+        
+        :param discordId: The user's discord ID, Essential for creating a new profile.
+        :return: dict If the profile was created sucessfully.
+        """
         check = await self.fetchProfile(discordId)
 
         if check is not False:
@@ -48,7 +53,12 @@ class DatabaseManager:
             return False
 
     async def fetchProfile(self, discordId: str):
-        """Fetches the user's profile."""
+        """
+        Fetches the user's profile.
+
+        :param discordID: The user's discord ID, this is essential for fetching the data
+        :return: dict if the data was fetched sucessfully.
+        """
         configurationManager = config.ConfigurationManager()
         defaultConfig = configurationManager.getBotConfig()
         localDatabase = TinyDB(defaultConfig["DEFAULT-DATABASE"])
@@ -65,7 +75,14 @@ class DatabaseManager:
             return False
 
     async def updateProfile(self, discordId: str, update: dict):
-        """Updates the user's profile"""
+        """
+        Updates the user's profile
+        
+        :param discordId: The user's discord id, this is essential for fetching the profile.
+        :param update: What data to update specifically, can be one or more values.
+        :return: True if the data was sucessfully updated
+        """
+        
         configurationManager = config.ConfigurationManager()
         defaultConfig = configurationManager.getBotConfig()
         localDatabase = TinyDB(defaultConfig["DEFAULT-DATABASE"])

@@ -15,11 +15,19 @@ class ConfigurationManager:
         return
 
     def getBotConfig(self):
-        """Get the default configuration set for the bot upon launch."""
+        """
+        Get the default configuration set for the bot upon launch.
+        """
         return self.botConfig
 
     def getCommandConfig(self, name: str, check: bool):
-        """Get a configuration for a specific command. Must be a valid configuration file name matching command to register"""
+        """
+        Get a configuration for a specific command. Must be a valid configuration file name matching command to register
+        
+        :param name: The name of the command to search for
+        :param check: A boolean to determine to return data or check for the files existance
+        :returns: dict
+        """
 
         filePath = os.path.join(f"configurations/commands/{name}.yml")
         result = None

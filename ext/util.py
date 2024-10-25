@@ -1,4 +1,5 @@
 import nextcord
+import nextcord.utils
 import essentials.formats.JSONFormatter as jsonFormatter
 
 from nextcord.ext import commands
@@ -24,7 +25,7 @@ class Util(commands.Cog, name="util"):
         useDefaultConfig = False
         customVariables = {"bot.ping": round(self.bot.latency * 1000)}
 
-        if loadCommandConfig is False:
+        if loadCommandConfig is False or loadCommandConfig["CUSTOM-RESPONSE"] is False:
             useDefaultConfig = True  # noqa: F841
             pass
 
@@ -37,7 +38,7 @@ class Util(commands.Cog, name="util"):
                 inline=True,
                 value=f"```{round(self.bot.latency * 1000)}ms!```",
             )
-            
+
             await interaction.send(embed=responseEmbed)
         else:
             jsonPath = loadCommandConfig["EMBED_PATH"]

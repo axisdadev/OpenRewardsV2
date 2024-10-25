@@ -19,10 +19,15 @@ variable_references = {
 }
 
 
-async def get_reference(
-    variable: str, interaction: Interaction
-):
-    """Get a reference and return the value"""
+async def get_reference(variable: str, interaction: Interaction, ignoreWarning: bool):
+    """
+    Get a reference and return the value
+    
+    :param variable: The variable to search for in the refrences list.
+    :param interaction: Nextcord interaction, must be used within a command.
+    :param ignoreWarning: When using custom variables, the references system is programmed to output if a certain refernce isn't found.
+    :returns: str, True if the refrence is found correctly and translated properly.
+    """
     logger = setup_logger()
     split_name = variable.split(sep=".", maxsplit=1)
 
@@ -52,33 +57,53 @@ async def get_reference(
                     value = eval(category_data[item], {"Interaction": interaction})
                     return value, True
             except AttributeError as e:
-                logger.warning(f"Error accessing {item}: {e}")
-                return None, False
+                if ignoreWarning:
+                    return None, False
+                else:
+                    logger.warning(f"Error accessing {item}: {e}")
+                    return None, False
         else:
-            logger.warning(f"Item '{item}' not found in category '{category}'.")
-            return None, False
+            if ignoreWarning:
+                return None, False
+            else:
+                logger.warning(f"Item '{item}' not found in category '{category}'.")
+                return None, False
     else:
-        logger.warning(f"Category '{category}' not found.")
-        return None, False
+        if ignoreWarning:
+            return None, False
+        else:
+            logger.warning(f"Category '{category}' not found.")
+            return None, False
 
 
 async def replace_references(
-    string: str, interaction: Interaction, customRefrences: dict
+    string: str, interaction: Interaction, customReferences: dict
 ):
+    """
+    Replaces all of the refrences in a string.
+
+    :param string: The string that is altered with the correct refrences.
+    :param interaction: The nextcord interaction type, required to be used within an async command
+    :param customReferences: If wanted, use custom variables passed down with data.
+
+    :returns: str
+    """
     pattern = r"\{(.*?)\}"
     matches = re.findall(pattern=pattern, string=string)
     logger = setup_logger()
 
     for match in matches:
         # Try to get the reference using the existing get_reference function
-        replaceRefrence, success = await get_reference(match, interaction)
+        replaceRefrence, success = await get_reference(match, interaction, True)
 
         if not success:
             try:
                 # Try to get the value from customRefrences if not found in standard references
-                if match in customRefrences:
-                    value = customRefrences[match]
-                    string = string.replace(f"{{{match}}}", str(value))  # Replace in the string
+                if match in customReferences:
+                    value = customReferences[match]
+                    string = string.replace(
+                        f"{{{match}}}", str(value)
+                    )  # Replace in the string
                 else:
                     logger.warning(f"Custom reference '{match}' not found.")
             except Exception as e:
