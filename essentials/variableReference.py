@@ -1,6 +1,7 @@
 from nextcord import Interaction
 from essentials.logger import setup_logger
 from essentials import database
+import re
 
 # Predefined references (with placeholders)
 variable_references = {
@@ -9,6 +10,7 @@ variable_references = {
         "id": "Interaction.user.id",
         "display": "Interaction.user.display_name",
         "nickname": "Interaction.user.nick",
+        "mention": "Interaction.user.mention",
         "avatar": "Interaction.user.avatar.url",
         "banner": "Interaction.user.banner.url",
         "points": """$["points"]""",
@@ -18,7 +20,7 @@ variable_references = {
 
 
 async def get_reference(
-    variable: str, interaction: Interaction, additionalParams: dict
+    variable: str, interaction: Interaction
 ):
     logger = setup_logger()
     split_name = variable.split(sep=".", maxsplit=1)
@@ -57,3 +59,31 @@ async def get_reference(
     else:
         logger.warning(f"Category '{category}' not found.")
         return None, False
+
+
+async def replace_references(
+    string: str, interaction: Interaction, customRefrences: dict
+):
+    pattern = r"\{(.*?)\}"
+    matches = re.findall(pattern=pattern, string=string)
+    logger = setup_logger()
+
+    for match in matches:
+        # Try to get the reference using the existing get_reference function
+        replaceRefrence, success = await get_reference(match, interaction)
+
+        if not success:
+            try:
+                # Try to get the value from customRefrences if not found in standard references
+                if match in customRefrences:
+                    value = customRefrences[match]
+                    string = string.replace(f"{{{match}}}", str(value))  # Replace in the string
+                else:
+                    logger.warning(f"Custom reference '{match}' not found.")
+            except Exception as e:
+                logger.error(f"Error while accessing custom reference '{match}': {e}")
+        else:
+            # Replace in the string using the value from get_reference
+            string = string.replace(f"{{{match}}}", str(replaceRefrence))
+
+    return string

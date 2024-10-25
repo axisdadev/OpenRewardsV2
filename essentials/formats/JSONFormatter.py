@@ -17,7 +17,7 @@ def loadEmbedData(path):
             f"Unable to load embed data with path: {path} with exception being: {e}"
         )
         return None
-
+    
 
 def jsonToEmbed(jsonData: dict):
     embed_data = jsonData
@@ -61,27 +61,3 @@ def jsonToEmbed(jsonData: dict):
             )
 
     return embed
-
-
-def extractVariables(obj):
-    results = []
-
-    # Regular expression to find text inside {}
-    pattern = re.compile(r"\{([^}]*)\}")
-
-    if isinstance(obj, dict):
-        for key, value in obj.items():
-            # Check key and value for the pattern
-            if isinstance(key, str):
-                results += pattern.findall(key)
-            if isinstance(value, str):
-                results += pattern.findall(value)
-            else:
-                # Recursive call if the value is a dict or list
-                results += extractVariables(value)
-
-    elif isinstance(obj, list):
-        for item in obj:
-            results += extractVariables(item)
-
-    return results
