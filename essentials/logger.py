@@ -4,6 +4,8 @@ import colorlog
 
 
 def setup_logger():
+    """Setup and initiate the logger."""
+    
     logger = logging.getLogger("openrwds")
     logger.setLevel(logging.INFO)
 

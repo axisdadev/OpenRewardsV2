@@ -9,5 +9,5 @@ ADDITIONAL-USER-IDS: []
 
 ## Message:
 CUSTOM-RESPONSE: true # Enable custom response
-CONTENT: "🦅 my american ping" # The base content of your message. Variable refrences are also allowed.
+CONTENT: null # The base content of your message. Variable refrences are also allowed.
 EMBED_PATH: "configurations/embedData/ping.json" # The path where the data of the embed shall go. Get embed data from https://glitchii.github.io/embedbuilder/ the content field isn't included in JSON data.

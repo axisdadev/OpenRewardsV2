@@ -22,6 +22,7 @@ variable_references = {
 async def get_reference(
     variable: str, interaction: Interaction
 ):
+    """Get a reference and return the value"""
     logger = setup_logger()
     split_name = variable.split(sep=".", maxsplit=1)
 

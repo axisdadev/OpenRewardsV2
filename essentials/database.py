@@ -20,6 +20,7 @@ class DatabaseManager:
         pass
 
     async def createProfile(self, discordId: str):
+        """Creates a default and new profile for the user."""
         check = await self.fetchProfile(discordId)
 
         if check is not False:
@@ -47,6 +48,7 @@ class DatabaseManager:
             return False
 
     async def fetchProfile(self, discordId: str):
+        """Fetches the user's profile."""
         configurationManager = config.ConfigurationManager()
         defaultConfig = configurationManager.getBotConfig()
         localDatabase = TinyDB(defaultConfig["DEFAULT-DATABASE"])
@@ -63,6 +65,7 @@ class DatabaseManager:
             return False
 
     async def updateProfile(self, discordId: str, update: dict):
+        """Updates the user's profile"""
         configurationManager = config.ConfigurationManager()
         defaultConfig = configurationManager.getBotConfig()
         localDatabase = TinyDB(defaultConfig["DEFAULT-DATABASE"])
@@ -82,6 +85,7 @@ class DatabaseManager:
 
     @tasks.loop(minutes=defaultConfig["BACKUP-MINUTES"])
     async def backupDatabase(self):
+        """Backs up the TinyDB database."""
         if defaultConfig["ENABLE-BACKUP"] is True:
             self.log.info("Backing up database...")
 

@@ -1,6 +1,5 @@
 import nextcord
 import essentials.formats.JSONFormatter as jsonFormatter
-import essentials.formats.embedTools as embedTools
 
 from nextcord.ext import commands
 from nextcord import Embed
@@ -38,19 +37,15 @@ class Util(commands.Cog, name="util"):
                 inline=True,
                 value=f"```{round(self.bot.latency * 1000)}ms!```",
             )
-
+            
             await interaction.send(embed=responseEmbed)
         else:
             jsonPath = loadCommandConfig["EMBED_PATH"]
             jsonLoaded = jsonFormatter.loadEmbedData(jsonPath)
-            jsonToEmbed = jsonFormatter.jsonToEmbed(jsonLoaded)
-
-            ## replaceRefTest = "{user.name} + {user.nickname} + {user.mention} + {bot.ping}"
-            ## replaceRefFunctions = await variableReference.replace_references(string=replaceRefTest, interaction=interaction, customRefrences=customVariables)
-            ## print(replaceRefFunctions)
+            jsonToEmbedReferences = await jsonFormatter.jsonToEmbedAddReferences(jsonLoaded, interaction, customVariables)
 
 
-            await interaction.send(content=loadCommandConfig["CONTENT"], embed=jsonToEmbed)
+            await interaction.send(content=await variableReference.replace_references(loadCommandConfig["CONTENT"], interaction, customVariables), embed=jsonToEmbedReferences)
 
 
 def setup(bot):
