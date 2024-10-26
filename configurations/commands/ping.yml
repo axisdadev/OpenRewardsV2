@@ -5,7 +5,6 @@
 ## Permissions
 PERMS-REQUIRED: false # Operations for points are automatically set in bot.yml.
 ADDITIONAL-ROLES: []
-ADDITIONAL-USER-IDS: []
 
 ## Message:
 CUSTOM-RESPONSE: false # Enable custom response
