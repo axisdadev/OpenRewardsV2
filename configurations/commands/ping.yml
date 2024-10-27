@@ -3,8 +3,8 @@
 ## """VARIABLE REFRENCES FOR EACH COMMAND CAN BE FOUND IN THE DOCS!"""
 
 ## Permissions
-PERMS-REQUIRED: false # Operations for points are automatically set in bot.yml.
-ADDITIONAL-ROLES: []
+PERMS-REQUIRED: true # Operations for points are automatically set in bot.yml.
+ADDITIONAL-ROLES: [1300222134014185555]
 
 ## Message:
 CUSTOM-RESPONSE: false # Enable custom response

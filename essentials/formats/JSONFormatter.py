@@ -18,21 +18,23 @@ def loadEmbedData(path):
             f"Unable to load embed data with path: {path} with exception being: {e}"
         )
         return None
-    
+
 
 def jsonToEmbed(jsonData: dict):
     """Converts a jsonData dictonary to nextcord.Embed."""
 
     embed_data = jsonData
-    colorConverted = str(embed_data.get("color")).replace("#", "") # Had to make a special variable for this since getting the data and attempting to convert it doesnt work.
+    colorConverted = str(
+        embed_data.get("color")
+    ).replace(
+        "#", ""
+    )  # Had to make a special variable for this since getting the data and attempting to convert it doesnt work.
 
     # Create the embed object
     embed = nextcord.Embed(
         title=embed_data.get("title", ""),
         description=embed_data.get("description", ""),
-        colour=nextcord.Color(
-            int(colorConverted, 16)
-        ),
+        colour=nextcord.Color(int(colorConverted, 16)),
     )
 
     if "url" in embed_data:
@@ -65,19 +67,27 @@ def jsonToEmbed(jsonData: dict):
     return embed
 
 
-async def jsonToEmbedAddReferences(jsonData: dict, interaction: nextcord.Interaction, customVariables: dict):
+async def jsonToEmbedAddReferences(
+    jsonData: dict, interaction: nextcord.Interaction, customVariables: dict
+):
     """The default jsonToEmbed but instead uses async and adds all of the refrences by using uncanny methods."""
     embed_data = jsonData
 
-    colorConverted = str(embed_data.get("color")).replace("#", "") # Had to make a special variable for this since getting the data and attempting to convert it doesnt work.
+    colorConverted = str(
+        embed_data.get("color")
+    ).replace(
+        "#", ""
+    )  # Had to make a special variable for this since getting the data and attempting to convert it doesnt work.
 
     # Create the embed object
     embed = nextcord.Embed(
-        title=await variableReference.replace_references(embed_data.get("title", ""), interaction, customVariables),
-        description=await variableReference.replace_references(embed_data.get("description", ""), interaction, customVariables),
-        colour=nextcord.Color(
-            int(colorConverted, 16)
+        title=await variableReference.replace_references(
+            embed_data.get("title", ""), interaction, customVariables
         ),
+        description=await variableReference.replace_references(
+            embed_data.get("description", ""), interaction, customVariables
+        ),
+        colour=nextcord.Color(int(colorConverted, 16)),
     )
 
     if "url" in embed_data:
@@ -86,7 +96,9 @@ async def jsonToEmbedAddReferences(jsonData: dict, interaction: nextcord.Interac
         embed.timestamp = embed_data["timestamp"]
     if "footer" in embed_data:
         embed.set_footer(
-            text=await variableReference.replace_references(embed_data["footer"].get("text", ""), interaction, customVariables),
+            text=await variableReference.replace_references(
+                embed_data["footer"].get("text", ""), interaction, customVariables
+            ),
             icon_url=embed_data["footer"].get("icon_url", ""),
         )
     if "image" in embed_data:
@@ -95,15 +107,21 @@ async def jsonToEmbedAddReferences(jsonData: dict, interaction: nextcord.Interac
         embed.set_thumbnail(url=embed_data["thumbnail"].get("url", ""))
     if "author" in embed_data:
         embed.set_author(
-            name=await variableReference.replace_references(embed_data["author"].get("name", ""), interaction, customVariables),
+            name=await variableReference.replace_references(
+                embed_data["author"].get("name", ""), interaction, customVariables
+            ),
             url=embed_data["author"].get("url", ""),
             icon_url=embed_data["author"].get("icon_url", ""),
         )
     if "fields" in embed_data:
         for field in embed_data["fields"]:
             embed.add_field(
-                name=await variableReference.replace_references(field.get("name", ""), interaction, customVariables),
-                value=await variableReference.replace_references(field.get("value", ""), interaction, customVariables),
+                name=await variableReference.replace_references(
+                    field.get("name", ""), interaction, customVariables
+                ),
+                value=await variableReference.replace_references(
+                    field.get("value", ""), interaction, customVariables
+                ),
                 inline=field.get("inline", True),
             )
 

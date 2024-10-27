@@ -1,5 +1,6 @@
 import nextcord
 
+
 def has_roles(member: nextcord.Member, roles: list[str]):
     """
     Checks if the member has any role from the required_roles list by role name.
@@ -10,6 +11,7 @@ def has_roles(member: nextcord.Member, roles: list[str]):
     """
 
     return any(role.id in roles for role in member.roles)
+
 
 def has_role(member: nextcord.Member, role: str):
     """

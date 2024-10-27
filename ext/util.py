@@ -2,6 +2,7 @@ import nextcord
 import nextcord.utils
 import essentials.formats.JSONFormatter as jsonFormatter
 import essentials.botUtils.permissionChecks as permissionChecks
+import essentials.botUtils.design as design
 
 from nextcord.ext import commands
 from nextcord import Embed
@@ -30,11 +31,11 @@ class Util(commands.Cog, name="util"):
             useDefaultConfig = True  # noqa: F841
             pass
 
-        if useDefaultConfig is False and loadCommandConfig["PERMS-REQUIRED"] is True:
+        if loadCommandConfig and loadCommandConfig["PERMS-REQUIRED"] is True:
             roleCheck = permissionChecks.has_roles(member=interaction.user, roles=loadCommandConfig["ADDITIONAL-ROLES"])
             
             if not roleCheck:
-                await interaction.send("> ❌ You do not have the correct permissions to run this command.", ephemeral=True)
+                await interaction.send(embed=design.Embeds.invalidPermissionEmbed, ephemeral=True)
                 return
 
         if useDefaultConfig:
