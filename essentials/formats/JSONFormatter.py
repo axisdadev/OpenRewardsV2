@@ -11,7 +11,6 @@ def loadEmbedData(path):
     try:
         with open(path, mode="r") as data:
             response = json.load(fp=data)
-            print(response)
             return response
     except Exception as e:
         log.warning(

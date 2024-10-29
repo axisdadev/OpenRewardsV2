@@ -1,8 +1,8 @@
 {
-    "title": "Bot - Ping!",
-    "description": "Hello {user.mention}, My latency is... **{bot.ping}ms**",
+    "title": "Rapid Rewards",
+    "description": "> System Latency **{bot.ping}ms**",
     "image": {
-      "url": "https://cdn.discordapp.com/attachments/1270864870954369045/1284039879394856960/Rapid-rewards.png?ex=6717f093&is=67169f13&hm=2e3396e96f1f94117b1a7732eedcdfebc0b3ed786a399aacf11f518fd8e5bb4c&"
+      "url": "https://cdn.discordapp.com/attachments/1270864870954369045/1293682104281989273/FinalUpdatedBanner.png?ex=671ffdd9&is=671eac59&hm=b36975c81c8d99989a3aaf094e85ca598c00fcf6f56b618b0a84372162ae6c84&"
     },
-    "color": "#865ee4"
+    "color": "#1b2d83"
 }

@@ -1,4 +1,4 @@
-from asynctinydb import TinyDB, Query
+from asynctinydb import TinyDB, Query, Document
 from nextcord.ext import tasks
 from essentials import config
 from essentials.logger import setup_logger
@@ -8,8 +8,6 @@ import time
 import os
 
 defaultConfig = config.ConfigurationManager().getBotConfig()
-
-
 class DatabaseManager:
     def __init__(self):
         configurationManager = config.ConfigurationManager()
@@ -64,10 +62,10 @@ class DatabaseManager:
         localDatabase = TinyDB(defaultConfig["DEFAULT-DATABASE"])
 
         search = Query()
-        profile = await localDatabase.get(search.discordId == discordId)
+        profile = await localDatabase.search(cond=search.discordId == discordId)
 
         if profile:
-            return profile
+            return dict(profile[0])
         elif not profile:
             self.log.warning(
                 f"""Failed to fetch profile with a discordID of {discordId}"""

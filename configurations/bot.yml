@@ -16,8 +16,8 @@ LOG-FILE: "app.log" # Set what file logs should default to, Factory setting is a
 RELEASE: "DEV1"
 
 # Permissions
-STAFF-ROLES: [] ## Staff roles, These will be the roles able to access point/rewards accounts. Add, Remove **with limits**.
-ADMIN-ROLES: [] ## Admin roles, These will be the roles similar to staff roles. But **without limits**, These roles will also be able to Delete, Give and Manage user items.
+STAFF-ROLES: [1300229553523789824] ## Staff roles, These will be the roles able to access point/rewards accounts. Add, Remove **with limits**.
+ADMIN-ROLES: [1300229633844711496] ## Admin roles, These will be the roles similar to staff roles. But **without limits**, These roles will also be able to Delete, Give and Manage user items.
 OWNER-IDS: [] ## User ID's of the owner of the bot. These user ID's have FULL control of the bot. Additional permissions such as completly deleting user profiles, and more adminstrative features.
 
 # Profile Configuration
@@ -26,5 +26,5 @@ DELETE-ON-LEAVE: false ## Boolean, Delete the users profile if they leave the se
 
 
 ## Staff Role Permissions
-MAX_ADD: 10000 # Ranges from 0 to X, The amount a staff member is allowed to give points to a user.
-MAX_SUB: 10000 # Ranges from 0 to X, The amount a staff member is allowed to remove points from a user.
+MAX-ADD: 10000 # Ranges from 0 to X, The amount a staff member is allowed to give points to a user.
+MAX-SUB: 10000 # Ranges from 0 to X, The amount a staff member is allowed to remove points from a user.
