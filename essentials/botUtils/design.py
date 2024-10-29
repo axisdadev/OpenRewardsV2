@@ -2,7 +2,7 @@ import nextcord
 from nextcord import Embed
 
 
-class Embeds:
+class Embeds():
     sucessEmbed = Embed(
         description="✅ Sucessfully completed action.",
         color=nextcord.Color(

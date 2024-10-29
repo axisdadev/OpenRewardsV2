@@ -32,10 +32,14 @@ class Util(commands.Cog, name="util"):
             pass
 
         if loadCommandConfig and loadCommandConfig["PERMS-REQUIRED"] is True:
-            roleCheck = permissionChecks.has_roles(member=interaction.user, roles=loadCommandConfig["ADDITIONAL-ROLES"])
-            
+            roleCheck = permissionChecks.has_roles(
+                member=interaction.user, roles=loadCommandConfig["ADDITIONAL-ROLES"]
+            )
+
             if not roleCheck:
-                await interaction.send(embed=design.Embeds.invalidPermissionEmbed, ephemeral=True)
+                await interaction.send(
+                    embed=design.Embeds.invalidPermissionEmbed, ephemeral=True
+                )
                 return
 
         if useDefaultConfig:
@@ -52,10 +56,16 @@ class Util(commands.Cog, name="util"):
         else:
             jsonPath = loadCommandConfig["EMBED_PATH"]
             jsonLoaded = jsonFormatter.loadEmbedData(jsonPath)
-            jsonToEmbedReferences = await jsonFormatter.jsonToEmbedAddReferences(jsonLoaded, interaction, customVariables)
+            jsonToEmbedReferences = await jsonFormatter.jsonToEmbedAddReferences(
+                jsonLoaded, interaction, customVariables
+            )
 
-
-            await interaction.send(content=await variableReference.replace_references(loadCommandConfig["CONTENT"], interaction, customVariables), embed=jsonToEmbedReferences)
+            await interaction.send(
+                content=await variableReference.replace_references(
+                    loadCommandConfig["CONTENT"], interaction, customVariables
+                ),
+                embed=jsonToEmbedReferences,
+            )
 
 
 def setup(bot):
